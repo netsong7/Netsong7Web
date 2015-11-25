@@ -27,10 +27,10 @@ public class BoardFrontController extends HttpServlet {
 		String cmd = req.getParameter("cmd");
 		String nextPage = null;
 
-		if(cmd.equals("multiboard.board")){
+		if(cmd.equals("MVC_MULTI")){
 			nextPage = "/WEB-INF/views/board/createBoard.jsp";
 		}
-		else if(cmd.equals("CREATE_BOARD")){
+		else if(cmd.equals("SPRING_MULTI")){
 			System.out.println("create_board");
 		}
 		

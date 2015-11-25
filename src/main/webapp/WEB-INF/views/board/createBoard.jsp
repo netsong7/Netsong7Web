@@ -9,7 +9,7 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<form method="post" action="board.app?cmd=CREATE_BOARD">
+			<form method="post" action="board.create?cmd=CREATE_BOARD">
 				<div class="col-lg-7">
 					<div class="input-group">
 					  	<span class="input-group-addon">게시판 이름 입력</span>

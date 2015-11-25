@@ -29,11 +29,11 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>multiBoardController</servlet-name>
+		<servlet-name>multiBoardCreateController</servlet-name>
 		<servlet-class>com.netsong7.board.multiboard.controller.BoardCreateController</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>multiBoardController</servlet-name>
-		<url-pattern>*.multi</url-pattern>
+		<servlet-name>multiBoardCreateController</servlet-name>
+		<url-pattern>*.create</url-pattern>
 	</servlet-mapping>
 </web-app>
