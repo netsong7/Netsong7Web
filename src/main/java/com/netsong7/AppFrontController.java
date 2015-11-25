@@ -43,7 +43,7 @@ public class AppFrontController extends HttpServlet {
 		else if(cmd.equals("/shop.app")){
 			nextPage = "/list.shop";
 		}
-		// 기타등등
+		
 		RequestDispatcher view = req.getRequestDispatcher(nextPage);
 		view.forward(req, res);
 	}

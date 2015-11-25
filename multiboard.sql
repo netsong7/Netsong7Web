@@ -37,6 +37,17 @@ CREATE TABLE tblBoardMaster
 	board_create_date    DATETIME NULL
 );
 
+-- 1차 수정된 tblBoardMaster
+CREATE TABLE tblBoardMaster
+(
+	board_num            INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	board_disp_name      VARCHAR(30) NULL,
+	board_tab_name       VARCHAR(30) NULL,
+	board_create_date    DATETIME NULL,
+	board_reply			 char(1),
+	board_comment		 char(1),
+	board_upload		 char(1)
+);
 
 
 CREATE TABLE tblBoardReply
