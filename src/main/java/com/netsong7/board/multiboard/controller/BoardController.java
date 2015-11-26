@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.netsong7.board.multiboard.dto.MasterBoardDto;
 import com.netsong7.board.multiboard.service.Service;
 import com.netsong7.board.multiboard.service.ServiceImpl;
 
@@ -48,6 +49,16 @@ public class BoardController extends HttpServlet {
 		else if("LIST_BOARD".equals(cmd)){
 			String boardNum = req.getParameter("boardNum");
 			nextPage = "/WEB-INF/views/board/list.jsp";
+			req.setAttribute("boardNum", boardNum);
+		}
+		else if("WRITE_BOARD".equals(cmd)){
+			int boardNum = Integer.parseInt(req.getParameter("boardNum"));
+			MasterBoardDto dto = service.getMasterTable(boardNum);
+			req.setAttribute("master", dto);
+			nextPage = "/WEB-INF/views/board/write.jsp";
+		}
+		else if("READ_BOARD".equals("cmd")){
+			nextPage = "/WEB-INF/views/board/read.jsp";
 		}
 		
 		req.setAttribute("tableList", service.getTables());
