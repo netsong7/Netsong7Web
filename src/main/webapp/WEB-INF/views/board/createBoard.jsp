@@ -6,10 +6,23 @@
 	<meta charset="UTF-8">
 	<title>Create Board</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<script>
+		// F5 새로고침 방지
+		function noEvent() {
+		     if (event.keyCode == 116) {
+		         event.keyCode= 2;
+		         return false;
+		     }
+		     else if(event.ctrlKey && (event.keyCode==78 || event.keyCode == 82)) {
+		         return false;
+		     }
+		}
+		document.onkeydown = noEvent;
+	</script>
 </head>
 <body>
 	<div class="container">
-		<form method="post" action="board.create?cmd=CREATE_BOARD">
+		<form method="post" action="board.manage?cmd=CREATE_BOARD">
 			<div class="row">
 				<div class="col-lg-7">
 					<div class="input-group">
@@ -44,7 +57,7 @@
 			<h2>게시판 목록</h2>
 			<ul>
 				<c:forEach var="table" items="${requestScope.tableList}">
-					<li>${table["board_disp_name"]}(${table["board_tab_name"]} : ${table["board_create_date"]})</li>
+					<li><a href='board.manage?cmd=LIST_BOARD&boardNum=${table["board_num"]}'>${table["board_disp_name"]}(${table["board_tab_name"]} : ${table["board_create_date"]})</a></li>
 				</c:forEach>
 			</ul>
 		</div>

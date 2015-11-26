@@ -17,7 +17,7 @@ import com.netsong7.board.multiboard.service.ServiceImpl;
  *	
  */
 
-public class BoardCreateController extends HttpServlet {
+public class BoardController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -31,21 +31,26 @@ public class BoardCreateController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		req.setCharacterEncoding("utf-8");
+		
 		String cmd = req.getParameter("cmd");
 		String nextPage = null;
-		Service service = null;
+		Service service = new ServiceImpl();
 		
 		if("CREATE_BOARD".equals(cmd)){
 			String boardName = req.getParameter("boardName");
 			String boardTitle = req.getParameter("boardTitle");
 			String[] chkOption = req.getParameterValues("chkOption");
 			
-			service = new ServiceImpl();
-			nextPage = (String)service.createBoard(boardName, boardTitle, chkOption);
-			req.setAttribute("tableList", service.getTables());
+			service.createBoard(boardName, boardTitle, chkOption);
+			nextPage = "/WEB-INF/views/board/createBoard.jsp";
+		}
+		else if("LIST_BOARD".equals(cmd)){
+			String boardNum = req.getParameter("boardNum");
+			nextPage = "/WEB-INF/views/board/list.jsp";
 		}
 		
+		req.setAttribute("tableList", service.getTables());
 		RequestDispatcher view = req.getRequestDispatcher(nextPage);
 		view.forward(req, resp);
 	}
