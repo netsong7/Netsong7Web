@@ -27,27 +27,27 @@
                         <div class="form-group">
                             <span class="col-md-2 text-center">제목</span>
                             <div class="col-md-10">
-                                <input id="wr_title" name="wr_title" type="text" placeholder="title" class="form-control">
+                                ${board["wr_title"]}
                             </div>
                         </div>
                         <div class="form-group">
                             <span class="col-md-2 text-center">글쓴이</span>
                             <div class="col-md-10">
-                                <input id="wr_writer" name="wr_writer" type="text" placeholder="writer" class="form-control">
+                                ${board["wr_writer"]}
                             </div>
                         </div>
 
                         <div class="form-group">
                             <span class="col-md-2 text-center">이메일</span>
                             <div class="col-md-10">
-                                <input id="wr_email" name="wr_email" type="text" placeholder="Email Address" class="form-control">
+                                ${board["wr_email"]}
                             </div>
                         </div>
 
                         <div class="form-group">
                             <span class="col-md-2 text-center">홈페이지</span>
                             <div class="col-md-8">
-                                <input id="wr_home" name="wr_home" type="text" placeholder="Homepage" class="form-control">
+                                ${board["wr_home"]}
                             </div>
                         </div>
                         
@@ -63,7 +63,7 @@
                         <div class="form-group">
                             <span class="col-md-2 text-center">내용</span>
                             <div class="col-md-10">
-                                <textarea class="form-control" id="wr_contents" name="wr_contents" placeholder="Enter your massage for us here." rows="7"></textarea>
+                                ${board["wr_contents"]}
                             </div>
                         </div>
 

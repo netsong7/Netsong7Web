@@ -1,5 +1,6 @@
 <%@page contentType="text/html;charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,16 @@
     <div class="row">
         <div class="col-md-6">
             <div class="well well-sm">
-                <form class="form-horizontal" method="post">
+         	<c:choose> 
+         		<c:when test='${master["board_upload"] == "y"}'>
+             		<form class="form-horizontal" method="post" action='board.manage?cmd=WRITE_PROC_UPLOAD_BOARD' enctype="multipart/form-data">
+             	</c:when>
+             	<c:otherwise>
+             		<form class="form-horizontal" method="post" action='board.manage?cmd=WRITE_PROC_BOARD' >
+             	</c:otherwise>
+            </c:choose>
+                	<input type="hidden" name="board_num" value='${master["board_num"]}' />
+                	<input type="hidden" name="board_upload" value='${master["board_upload"]}' />
                     <fieldset>
                         <legend class="text-center header">글을 작성해 주세요</legend>
 
@@ -51,13 +61,20 @@
                             </div>
                         </div>
                         
-                        <c:if test='${master["board_upload"] == "y"}'>
                         <div class="form-group">
-                            <span class="col-md-2 text-center">업로드</span>
+                            <span class="col-md-2 text-center">암호</span>
                             <div class="col-md-8">
-                                <input id="wr_file" name="wr_file" type="file" placeholder="Upload"">
+                                <input id="wr_pass" name="wr_pass" type="password" placeholder="Password" class="form-control">
                             </div>
                         </div>
+                        
+                        <c:if test='${master["board_upload"] == "y"}'>
+	                        <div class="form-group">
+	                            <span class="col-md-2 text-center">업로드</span>
+	                            <div class="col-md-8">
+	                                <input id="wr_file" name="wr_file" type="file" placeholder="Upload"">
+	                            </div>
+	                        </div>
 						</c:if>
 						
                         <div class="form-group">

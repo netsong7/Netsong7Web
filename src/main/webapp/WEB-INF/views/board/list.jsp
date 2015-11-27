@@ -12,7 +12,7 @@
 			function(){
 				$("#board_write").click(
 					function(){
-						var url ="board.manage?cmd=WRITE_BOARD&boardNum=${boardNum}";
+						var url ="board.manage?cmd=WRITE_BOARD&board_num=${board_num}";
 						$(location).attr('href',url);
 					}
 				);
@@ -41,29 +41,20 @@
 			<table class="table table-hover table-condensed table-striped">
 				<thead>
 					<tr>
-						<th class="col-sm-1"> 번호 </th> <th class="col-sm-3"> 제목 </th> <th class="col-sm-2">글쓴이 </th> 
-						<th class="col-sm-2"> 날짜 </th> <th class="col-sm-1"> 조회수 </th>
+						<th class="col-sm-1"> 번호 </th> <th class="col-sm-5"> 제목 </th> <th class="col-sm-2">글쓴이 </th> 
+						<th class="col-sm-3"> 날짜 </th> <th class="col-sm-1"> 조회수 </th>
 					</tr>
 				</thead>
 				<tbody>
+				<c:forEach var="board" items="${boardList}">
 					<tr>
-						<td>
-							1
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							01/04/2012
-						</td>
-						<td>
-							Default
-						</td>
-						<td>
-							Default
-						</td>
+						<td> ${board["wr_num"]}	</td>
+						<td> <a href='board.manage?cmd=READ_BOARD&wr_num=${board["wr_num"]}'>${board["wr_title"]}</a> </td>
+						<td> ${board["wr_writer"]} </td>
+						<td> ${board["wr_date"]} </td>
+						<td> ${board["wr_counter"]} </td>
 					</tr>
-					
+				</c:forEach>
 				</tbody>
 			</table>
 		</div>

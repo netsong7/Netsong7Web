@@ -57,7 +57,7 @@
 			<h2>게시판 목록</h2>
 			<ul>
 				<c:forEach var="table" items="${requestScope.tableList}">
-					<li><a href='board.manage?cmd=LIST_BOARD&boardNum=${table["board_num"]}'>${table["board_disp_name"]}(${table["board_tab_name"]} : ${table["board_create_date"]})</a></li>
+					<li><a href='board.manage?cmd=LIST_BOARD&board_num=${table["board_num"]}'>${table["board_disp_name"]}(${table["board_tab_name"]} : ${table["board_create_date"]})</a></li>
 				</c:forEach>
 			</ul>
 		</div>

@@ -3,9 +3,11 @@ package com.netsong7.board.multiboard.service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Vector;
 
+import com.netsong7.board.multiboard.dto.BasicBoardDto;
 import com.netsong7.board.multiboard.dto.MasterBoardDto;
 import com.netsong7.dao.DAO_Singleton;
 
@@ -78,7 +80,6 @@ public class ServiceImpl implements Service {
 	
 	public List getTables(){
 		Vector tableList = new Vector();
-		
 		try{
 			con = dao.getConnection();
 			
@@ -147,7 +148,98 @@ public class ServiceImpl implements Service {
 		return null;
 	}
 	
-	public List getBoardList(int boardNum){
-		return null;
+	public List getBoardList(int board_num){
+		Vector boardList = new Vector();
+		try{
+			con = dao.getConnection();
+			if(con != null){
+				String sql = "select wr_num, wr_title, wr_writer, wr_date, wr_counter from tblBoardBasic where board_num=" + board_num;
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()){
+					BasicBoardDto dto = new BasicBoardDto();
+					dto.setWr_num(rs.getInt("wr_num"));
+					dto.setWr_title(rs.getString("wr_title"));
+					dto.setWr_writer(rs.getString("wr_writer"));
+					dto.setWr_date(rs.getString("wr_date"));
+					dto.setWr_counter(rs.getInt("wr_counter"));
+					
+					boardList.add(dto);
+				}
+			}	
+		}
+		catch(Exception err){
+			System.out.println("createBoard() : " + err);
+		}
+		finally{
+			dao.freeCon(con, pstmt, rs);
+		}
+		return boardList;
+	}
+	
+	public void writeBoard(BasicBoardDto basicDto){
+		try{
+			con = dao.getConnection();
+			if(con != null){
+				String sql = "insert into tblBoardBasic(wr_title, wr_writer, wr_contents, wr_email, wr_home, wr_counter, wr_ip, wr_pass, wr_date, board_num) values(?, ?, ?, ?, ?, 0, ?, ?, now(), ?)";
+				pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				pstmt.setString(1, basicDto.getWr_title());
+				pstmt.setString(2, basicDto.getWr_writer());
+				pstmt.setString(3, basicDto.getWr_contents());
+				pstmt.setString(4, basicDto.getWr_email());
+				pstmt.setString(5, basicDto.getWr_home());
+				pstmt.setString(6, basicDto.getWr_ip());
+				pstmt.setString(7, basicDto.getWr_pass());
+				pstmt.setInt(8, basicDto.getBoard_num());
+				
+				pstmt.executeUpdate();  
+				ResultSet keys = pstmt.getGeneratedKeys();    
+				keys.next();  
+				int key = keys.getInt(1);
+				
+				if(basicDto.getWr_file() != null && !basicDto.getWr_file().isEmpty()){
+					sql = "insert into tblBoardUpload(wr_num, wr_file) values(?, ?)";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, key);
+					pstmt.setString(2, basicDto.getWr_file());
+					pstmt.executeUpdate();
+				}
+			}	
+		}
+		catch(Exception err){
+			System.out.println("writeBoard() : " + err);
+		}
+		finally{
+			dao.freeCon(con, pstmt, rs);
+		}
+	}
+	
+	public BasicBoardDto getBoard(int wr_num){
+		BasicBoardDto dto = new BasicBoardDto();
+		try{
+			con = dao.getConnection();
+			if(con != null){
+				String sql = "select wr_num, wr_title, wr_writer, wr_email, wr_home, wr_contents from tblBoardBasic where wr_num=" + wr_num;
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()){
+					dto.setWr_num(rs.getInt("wr_num"));
+					dto.setWr_title(rs.getString("wr_title"));
+					dto.setWr_writer(rs.getString("wr_writer"));
+					dto.setWr_email(rs.getString("wr_email"));
+					dto.setWr_home(rs.getString("wr_home"));
+					dto.setWr_contents(rs.getString("wr_contents"));
+				}
+			}	
+		}
+		catch(Exception err){
+			System.out.println("createBoard() : " + err);
+		}
+		finally{
+			dao.freeCon(con, pstmt, rs);
+		}
+		return dto;
 	}
 }
