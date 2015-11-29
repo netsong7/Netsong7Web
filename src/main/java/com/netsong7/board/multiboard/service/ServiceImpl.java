@@ -10,22 +10,22 @@ import java.util.Vector;
 import com.netsong7.board.multiboard.dto.BasicBoardDto;
 import com.netsong7.board.multiboard.dto.MasterBoardDto;
 import com.netsong7.dao.DAO_Singleton;
+import com.netsong7.dao.DBConnectionMgr;
 
 public class ServiceImpl implements Service {
 	private Connection con;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
-	private DAO_Singleton dao;
+	//private DAO_Singleton dao;
+	private DBConnectionMgr dao;
 	
 	public ServiceImpl(){
 		try{
-			dao =  DAO_Singleton.newInstance();
+			//dao =  DAO_Singleton.newInstance();
+			dao = DBConnectionMgr.getInstance();
 		}
 		catch(Exception err){
 			System.out.println("ServiceImpl() : " + err);
-		}
-		finally{
-			dao.freeCon(con, pstmt, rs);
 		}
 	}
 	
@@ -74,7 +74,8 @@ public class ServiceImpl implements Service {
 			System.out.println("createBoard() : " + err);
 		}
 		finally{
-			dao.freeCon(con, pstmt, rs);
+			//dao.freeCon(con, pstmt);
+			dao.freeConnection(con, pstmt, rs);
 		}
 	}
 	
@@ -109,7 +110,8 @@ public class ServiceImpl implements Service {
 			System.out.println("createBoard() : " + err);
 		}
 		finally{
-			dao.freeCon(con, pstmt, rs);
+			//dao.freeCon(con, pstmt, rs);
+			dao.freeConnection(con, pstmt, rs);
 		}
 		
 		return tableList;
@@ -143,7 +145,8 @@ public class ServiceImpl implements Service {
 			System.out.println("getBoard() : " + err);
 		}
 		finally{
-			dao.freeCon(con, pstmt, rs);
+			//dao.freeCon(con, pstmt, rs);
+			dao.freeConnection(con, pstmt, rs);
 		}
 		return null;
 	}
@@ -173,7 +176,8 @@ public class ServiceImpl implements Service {
 			System.out.println("createBoard() : " + err);
 		}
 		finally{
-			dao.freeCon(con, pstmt, rs);
+			//dao.freeCon(con, pstmt, rs);
+			dao.freeConnection(con, pstmt, rs);
 		}
 		return boardList;
 	}
@@ -211,7 +215,8 @@ public class ServiceImpl implements Service {
 			System.out.println("writeBoard() : " + err);
 		}
 		finally{
-			dao.freeCon(con, pstmt, rs);
+			//dao.freeCon(con, pstmt);
+			dao.freeConnection(con, pstmt, rs);
 		}
 	}
 	
@@ -238,7 +243,8 @@ public class ServiceImpl implements Service {
 			System.out.println("createBoard() : " + err);
 		}
 		finally{
-			dao.freeCon(con, pstmt, rs);
+			//dao.freeCon(con, pstmt, rs);
+			dao.freeConnection(con, pstmt, rs);
 		}
 		return dto;
 	}
