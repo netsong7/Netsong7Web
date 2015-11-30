@@ -6,6 +6,7 @@
 	<meta charset="UTF-8">
 	<title>Create Board</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script>
 		// F5 새로고침 방지
 		function noEvent() {
@@ -18,11 +19,43 @@
 		     }
 		}
 		document.onkeydown = noEvent;
+		
+		$("document").ready(
+			function(){
+				$("#createBoard").click(
+					function(){
+						if($("#boardName").val()=="" || $("#boardName").val()==null){
+							alert("반드시 입력해주세요.");
+							return;
+						}
+						
+						$.ajax({
+						    type: "POST",
+						    url: "board.manage?cmd=CREATE_BOARD",
+						    data: $('#f1').serialize(),  // 폼데이터 직렬화
+						    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+						    dataType: "text",   
+						    success: function(data) { // data: 백엔드에서 requestBody 형식으로 보낸 데이터를 받는다.
+						       if(data.trim() == "true"){
+						    	   $("#resultDisplay").text("이미 테이블명이 사용중입니다. 다른 이름을 입력해주세요.");
+						       }
+						       else{
+						    	   location.reload();
+						       }
+						    },
+						    error: function(jqXHR, textStatus, errorThrown) {
+						        //에러코드
+						    }
+						});
+					}
+				);
+			}
+		);
 	</script>
 </head>
 <body>
 	<div class="container">
-		<form method="post" action="board.manage?cmd=CREATE_BOARD">
+		<form method="post" action="board.manage?cmd=CREATE_BOARD" id="f1">
 			<div class="row">
 				<div class="col-lg-7">
 					<div class="input-group">
@@ -42,13 +75,14 @@
 					</div>
 					<div class="input-group">	
 					  	<span class="input-group-addon">게시판 이름 입력(예:tblFreetalk, tblQnA, tblNotice)</span>
-					  	<input type="text" class="form-control" aria-label="생성할 테이블명을 입력하시오." name="boardName">
+					  	<input type="text" class="form-control" aria-label="생성할 테이블명을 입력하시오." name="boardName" id="boardName" required="required">
 					</div><br/>
 					<div class="input-group">
 					  	<span class="input-group-btn">
-		        			<button class="btn btn-default" type="submit">게시판 생성</button>
+		        			<button class="btn btn-default" type="button" id="createBoard">게시판 생성</button>
 		      			</span>
 					</div>
+					<span id="resultDisplay" style="color:red;"></span>
 				</div>
 			</div>
 		</form>

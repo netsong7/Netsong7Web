@@ -16,5 +16,6 @@ public interface Service {
 	public List getBoardList(int board_num);
 	public MasterBoardDto getMasterTable(int boardNum);
 	public void writeBoard(BasicBoardDto basicDto);
-	public BasicBoardDto getBoard(int wr_num);
+	public BasicBoardDto getBoard(int wr_num, String board_upload);
+	public boolean getDuplicatedTableName(String tableName);
 }

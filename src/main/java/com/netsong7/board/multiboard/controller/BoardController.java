@@ -49,8 +49,16 @@ public class BoardController extends HttpServlet {
 			String boardTitle = req.getParameter("boardTitle");
 			String[] chkOption = req.getParameterValues("chkOption");
 			
-			service.createBoard(boardName, boardTitle, chkOption);
-			nextPage = "/WEB-INF/views/board/createBoard.jsp";
+			// 중복된 테이블명이 있다면
+			if(service.getDuplicatedTableName(boardName)){
+				resp.getWriter().println("true");
+				return;
+				//nextPage = "/WEB-INF/views/board/createBoard.jsp";
+			}
+			else{
+				service.createBoard(boardName, boardTitle, chkOption);
+				nextPage = "/WEB-INF/views/board/createBoard.jsp";
+			}
 		}
 		else if("LIST_BOARD".equals(cmd)){
 			board_num = Integer.parseInt(req.getParameter("board_num"));
@@ -122,9 +130,20 @@ public class BoardController extends HttpServlet {
 		}
 		else if("READ_BOARD".equals(cmd)){
 			int wr_num = Integer.parseInt(req.getParameter("wr_num"));
-			BasicBoardDto basicDto = service.getBoard(wr_num);
+			board_num = Integer.parseInt(req.getParameter("board_num"));
+			
+			MasterBoardDto dto = service.getMasterTable(board_num);
+			BasicBoardDto basicDto = service.getBoard(wr_num, dto.getBoard_upload());
+			
+			req.setAttribute("master", dto);
 			req.setAttribute("board", basicDto);
 			nextPage = "/WEB-INF/views/board/read.jsp";
+		}
+		else if("DOWNLOAD".equals(cmd)){
+			String path = req.getParameter("path");
+			String name = req.getParameter("name");
+			
+			nextPage = "/WEB-INF/util/download.jsp?path=" + path + "&name=" + name;
 		}
 		
 		req.setAttribute("tableList", service.getTables());

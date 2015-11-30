@@ -159,7 +159,7 @@
                             <ul class="list-unstyled">
                                 <li><a href="board.app?cmd=MVC_MULTI">MVC 멀티 게시판</a></li>
                                 <li><a href="board.app?cmd=SPRING_MULTI">스프링 멀티 게시판</a></li>
-                                <li><a href="#">Category Name</a></li>
+                                <li><a href="chatting.app">웹소켓을 이용한 채팅 예제</a></li>
                                 <li><a href="#">Category Name</a></li>
                             </ul>
                         </div>

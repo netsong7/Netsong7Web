@@ -79,6 +79,7 @@ public class ServiceImpl implements Service {
 		}
 	}
 	
+	// 화면에 테이블 목록 뿌려주기 위한 기능
 	public List getTables(){
 		Vector tableList = new Vector();
 		try{
@@ -117,6 +118,7 @@ public class ServiceImpl implements Service {
 		return tableList;
 	}
 	
+	// 마스터 테이블 정보 알아내기
 	public MasterBoardDto getMasterTable(int boardNum){
 		try{
 			con = dao.getConnection();
@@ -220,12 +222,19 @@ public class ServiceImpl implements Service {
 		}
 	}
 	
-	public BasicBoardDto getBoard(int wr_num){
+	// 글 읽기 페이지 기능
+	public BasicBoardDto getBoard(int wr_num, String board_upload){
 		BasicBoardDto dto = new BasicBoardDto();
+		String sql = null;
 		try{
 			con = dao.getConnection();
 			if(con != null){
-				String sql = "select wr_num, wr_title, wr_writer, wr_email, wr_home, wr_contents from tblBoardBasic where wr_num=" + wr_num;
+				if(board_upload.equals("y")){
+					sql = "select basic.wr_num, wr_title, wr_writer, wr_email, wr_home, wr_contents, wr_file from tblBoardBasic basic inner join tblBoardUpload upload on basic.wr_num=upload.wr_num and basic.wr_num=" + wr_num;
+				}
+				else{
+					sql = "select wr_num, wr_title, wr_writer, wr_email, wr_home, wr_contents from tblBoardBasic where wr_num=" + wr_num;
+				}
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				
@@ -236,16 +245,45 @@ public class ServiceImpl implements Service {
 					dto.setWr_email(rs.getString("wr_email"));
 					dto.setWr_home(rs.getString("wr_home"));
 					dto.setWr_contents(rs.getString("wr_contents"));
+					if(board_upload.equals("y")){
+						dto.setWr_file(rs.getString("wr_file"));
+					}
 				}
 			}	
 		}
 		catch(Exception err){
-			System.out.println("createBoard() : " + err);
+			System.out.println("getBoard() : " + err);
 		}
 		finally{
 			//dao.freeCon(con, pstmt, rs);
 			dao.freeConnection(con, pstmt, rs);
 		}
 		return dto;
+	}
+	
+	// 테이블 이름 중복검사
+	public boolean getDuplicatedTableName(String tableName){
+		boolean boolResult = false;
+		try{
+			con = dao.getConnection();
+			if(con != null){
+				String sql = "select table_name from INFORMATION_SCHEMA.TABLES where  TABLE_SCHEMA = 'netsong7' and table_name='" + tableName + "'";
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()){
+					boolResult = true;
+				}
+			}	
+		}
+		catch(Exception err){
+			System.out.println("getDuplicatedTableName() : " + err);
+		}
+		finally{
+			//dao.freeCon(con, pstmt, rs);
+			dao.freeConnection(con, pstmt, rs);
+		}
+		
+		return boolResult;
 	}
 }

@@ -43,6 +43,9 @@ public class AppFrontController extends HttpServlet {
 		else if(cmd.equals("/shop.app")){
 			nextPage = "/list.shop";
 		}
+		else if(cmd.equals("/chatting.app")){
+			nextPage = "/WEB-INF/views/chat/chat.xhtml";
+		}
 		
 		RequestDispatcher view = req.getRequestDispatcher(nextPage);
 		view.forward(req, res);
