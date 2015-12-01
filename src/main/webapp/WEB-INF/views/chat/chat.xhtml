@@ -22,16 +22,20 @@
         input#chat {
             width: 410px
         }
+        
+         input#nickname {
+            width: 300px
+        }
 
         #console-container {
-            width: 400px;
+            width: 700px;
         }
 
         #console {
             border: 1px solid #CCCCCC;
             border-right-color: #999999;
             border-bottom-color: #999999;
-            height: 170px;
+            height: 300px;
             overflow-y: scroll;
             padding: 5px;
             width: 100%;
@@ -86,8 +90,12 @@
 
         Chat.sendMessage = (function() {
             var message = document.getElementById('chat').value;
+            var nickname = document.getElementById("nickname").value;
+         
             if (message != '') {
-                Chat.socket.send(message);
+                //Chat.socket.send(message);
+                Chat.socket.send(nickname + "," + message);
+				
                 document.getElementById('chat').value = '';
             }
         });
@@ -123,6 +131,9 @@
 <div class="noscript"><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websockets rely on Javascript being enabled. Please enable
     Javascript and reload this page!</h2></div>
 <div>
+	<p>	
+		<input type="text" placeholder="여기에 이름을 입력해 주세요" id="nickname" />
+	</p>
     <p>
         <input type="text" placeholder="type and press enter to chat" id="chat" />
     </p>

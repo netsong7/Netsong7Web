@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package websocket.chat;
+package com.netsong7.websocket.chat;
 
 import java.io.IOException;
 import java.util.Set;
@@ -43,7 +43,8 @@ public class ChatAnnotation {
     private static final Set<ChatAnnotation> connections =
             new CopyOnWriteArraySet<ChatAnnotation>();
 
-    private final String nickname;
+    //private final String nickname;
+    private String nickname;
     private Session session;
 
     public ChatAnnotation() {
@@ -72,8 +73,11 @@ public class ChatAnnotation {
     @OnMessage
     public void incoming(String message) {
         // Never trust the client
+    	String[] datas = message.split(",");
+    	nickname = datas[0];
+    	
         String filteredMessage = String.format("%s: %s",
-                nickname, HTMLFilter.filter(message.toString()));
+                nickname, HTMLFilter.filter(datas[1].toString()));
         broadcast(filteredMessage);
     }
 
@@ -83,7 +87,6 @@ public class ChatAnnotation {
     @OnError
     public void onError(Throwable t) throws Throwable {
 //        log.error("Chat Error: " + t.toString(), t);
-    	System.out.println("Chat Error: " + t.toString());
     }
 
 
@@ -95,7 +98,6 @@ public class ChatAnnotation {
                 }
             } catch (IOException e) {
 //                log.debug("Chat Error: Failed to send message to client", e);
-            	System.out.println("Chat Error: Failed to send message to client");
                 connections.remove(client);
                 try {
                     client.session.close();

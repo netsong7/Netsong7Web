@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package websocket;
+package com.netsong7.websocket;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,26 +28,40 @@ import javax.websocket.server.ServerEndpointConfig;
 
 public class ExamplesConfig implements ServerApplicationConfig {
 
-   public Set<ServerEndpointConfig> getEndpointConfigs(
+    @Override
+    public Set<ServerEndpointConfig> getEndpointConfigs(
             Set<Class<? extends Endpoint>> scanned) {
-	   	
+
         Set<ServerEndpointConfig> result = new HashSet<ServerEndpointConfig>();
+        // annotation을 쓰지 않는 방법
+        /*
+        if (scanned.contains(EchoEndpoint.class)) {
+            result.add(ServerEndpointConfig.Builder.create(
+                    EchoEndpoint.class,
+                    "/websocket/echoProgrammatic").build());
+        }
+
+        if (scanned.contains(DrawboardEndpoint.class)) {
+            result.add(ServerEndpointConfig.Builder.create(
+                    DrawboardEndpoint.class,
+                    "/websocket/drawboard").build());
+        }
+		*/
         return result;
     }
 
 
+    @Override
     public Set<Class<?>> getAnnotatedEndpointClasses(Set<Class<?>> scanned) {
         // Deploy all WebSocket endpoints defined by annotations in the examples
         // web application. Filter out all others to avoid issues when running
         // tests on Gump
-    	
         Set<Class<?>> results = new HashSet<Class<?>>();
         for (Class<?> clazz : scanned) {
-            if (clazz.getPackage().getName().startsWith("websocket.")) {
+            if (clazz.getPackage().getName().startsWith("com.netsong7.websocket.")) {
                 results.add(clazz);
             }
         }
-        System.out.println("getAnnotatedEndpointClasses:" + results);
         return results;
     }
 }
