@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.netsong7;
+package websocket;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,7 +30,7 @@ public class ExamplesConfig implements ServerApplicationConfig {
 
    public Set<ServerEndpointConfig> getEndpointConfigs(
             Set<Class<? extends Endpoint>> scanned) {
-	   	System.out.println("getEndpointConfigs");
+	   	
         Set<ServerEndpointConfig> result = new HashSet<ServerEndpointConfig>();
         return result;
     }
@@ -40,13 +40,14 @@ public class ExamplesConfig implements ServerApplicationConfig {
         // Deploy all WebSocket endpoints defined by annotations in the examples
         // web application. Filter out all others to avoid issues when running
         // tests on Gump
-    	System.out.println("getAnnotatedEndpointClasses");
+    	
         Set<Class<?>> results = new HashSet<Class<?>>();
         for (Class<?> clazz : scanned) {
-            if (clazz.getPackage().getName().startsWith("com.netsong7.")) {
+            if (clazz.getPackage().getName().startsWith("websocket.")) {
                 results.add(clazz);
             }
         }
+        System.out.println("getAnnotatedEndpointClasses:" + results);
         return results;
     }
 }

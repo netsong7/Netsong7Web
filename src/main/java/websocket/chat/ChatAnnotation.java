@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.netsong7.chat;
+package websocket.chat;
 
 import java.io.IOException;
 import java.util.Set;
@@ -33,7 +33,7 @@ import javax.websocket.server.ServerEndpoint;
 
 import com.netsong7.util.HTMLFilter;
 
-@ServerEndpoint(value = "/com/netsong7/chat")
+@ServerEndpoint(value = "/websocket/chat")
 public class ChatAnnotation {
 
 //    private static final Log log = LogFactory.getLog(ChatAnnotation.class);
@@ -83,6 +83,7 @@ public class ChatAnnotation {
     @OnError
     public void onError(Throwable t) throws Throwable {
 //        log.error("Chat Error: " + t.toString(), t);
+    	System.out.println("Chat Error: " + t.toString());
     }
 
 
@@ -94,6 +95,7 @@ public class ChatAnnotation {
                 }
             } catch (IOException e) {
 //                log.debug("Chat Error: Failed to send message to client", e);
+            	System.out.println("Chat Error: Failed to send message to client");
                 connections.remove(client);
                 try {
                     client.session.close();

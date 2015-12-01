@@ -78,9 +78,7 @@
 
         Chat.initialize = function() {
             if (window.location.protocol == 'http:') {
-            var str = 'ws://' + window.location.host + '/Netsong7Web/com/netsong7/chat';
-            alert(str);
-                Chat.connect('ws://' + window.location.host + '/Netsong7Web/com/netsong7/chat');
+                Chat.connect('ws://' + window.location.host + '/Netsong7Web/websocket/chat');
             } else {
                 Chat.connect('wss://' + window.location.host + '/examples/websocket/chat');
             }
