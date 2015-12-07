@@ -81,3 +81,27 @@ ADD FOREIGN KEY R_4 (wr_num) REFERENCES tblBoardBasic (wr_num);
 
 ALTER TABLE tblBoardUpload
 ADD FOREIGN KEY R_5 (wr_num) REFERENCES tblBoardBasic (wr_num);
+
+/*
+ * 회원 테이블 추가 2015.12.5
+ * ----------------------
+ * mem_birth는 yyyymmdd
+ * mem_hobby는 나중에 취미별로 커뮤니티나 기타 서비스를 제공하기 위해 준비(코드값으로 입력받음)
+ */
+CREATE TABLE tblMember(
+	mem_num			INTEGER		NOT	NULL	PRIMARY KEY AUTO_INCREMENT,
+	mem_id			VARCHAR(20)	NOT NULL,
+	mem_name		VARCHAR(20)	NOT NULL,
+	mem_pass		VARCHAR(20)	NOT NULL,
+	mem_nick		VARCHAR(20) NULL,
+	mem_birth		CHAR(8)		NOT	NULL,	
+	mem_sex			CHAR(1)		NOT	NULL,
+	mem_email		VARCHAR(30)	NOT	NULL,
+	mem_addr		VARCHAR(50)	NOT	NULL,
+	mem_company		VARCHAR(50)	NULL,
+	mem_phone		VARCHAR(30)	NOT	NULL,
+	mem_hobby		CHAR(2),
+	mem_intro		VARCHAR(200)	NOT	NULL,
+	mem_pic			VARCHAR(50)	NOT	NULL,
+	mem_regdate		TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+);

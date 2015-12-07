@@ -54,6 +54,7 @@
 	</script>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/inc/header.jsp"></jsp:include>
 	<div class="container">
 		<form method="post" action="board.manage?cmd=CREATE_BOARD" id="f1">
 			<div class="row">

@@ -10,6 +10,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/inc/header.jsp"></jsp:include>
 <div class="container">
 
 <div class="page-header">

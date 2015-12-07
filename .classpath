@@ -23,6 +23,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/netsong7/apache-tomcat-7.0.64/lib/websocket-api.jar"/>
+	<classpathentry kind="lib" path="D:/Dev/apache-tomcat-7.0.61/lib/websocket-api.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

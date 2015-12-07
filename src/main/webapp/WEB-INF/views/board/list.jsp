@@ -22,6 +22,7 @@
 </head>
 <body>
 <div class="container">
+	<jsp:include page="/WEB-INF/views/inc/header.jsp"></jsp:include>
 	<div class="row" align="center">
 		<div class="col-lg-12 text-center v-center">
           <h2>멀티 게시판</h2>

@@ -30,8 +30,8 @@ public class ExamplesConfig implements ServerApplicationConfig {
 
     @Override
     public Set<ServerEndpointConfig> getEndpointConfigs(
-            Set<Class<? extends Endpoint>> scanned) {
-
+            Set<Class<? extends Endpoint>> scanned) { 
+    	
         Set<ServerEndpointConfig> result = new HashSet<ServerEndpointConfig>();
         // annotation을 쓰지 않는 방법
         /*
