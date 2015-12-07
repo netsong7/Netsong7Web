@@ -38,8 +38,9 @@ public class BoardController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		
+
 		String cmd = req.getParameter("cmd");
+		
 		String nextPage = null;
 		Service service = new ServiceImpl();
 		int board_num = 0;
@@ -144,6 +145,11 @@ public class BoardController extends HttpServlet {
 			String name = req.getParameter("name");
 			
 			nextPage = "/WEB-INF/util/download.jsp?path=" + path + "&name=" + name;
+		}
+		else if("DELETE_BOARD".equals(cmd)){
+			board_num = Integer.parseInt(req.getParameter("board_num"));
+			service.removeBoard(board_num);
+			nextPage = "/WEB-INF/views/board/createBoard.jsp";
 		}
 		
 		req.setAttribute("tableList", service.getTables());

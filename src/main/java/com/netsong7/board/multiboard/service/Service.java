@@ -18,4 +18,5 @@ public interface Service {
 	public void writeBoard(BasicBoardDto basicDto);
 	public BasicBoardDto getBoard(int wr_num, String board_upload);
 	public boolean getDuplicatedTableName(String tableName);
+	public void removeBoard(int board_num);
 }

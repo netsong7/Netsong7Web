@@ -286,4 +286,37 @@ public class ServiceImpl implements Service {
 		
 		return boolResult;
 	}
+	
+	// 테이블 삭제
+	public void removeBoard(int board_num){
+		try{
+			con = dao.getConnection();
+			if(con != null){
+				String sql = "select wr_num from tblBoardBasic where board_num=" + board_num;
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()){
+					pstmt = con.prepareStatement("delete from tblBoardComment where wr_num=" + rs.getInt("wr_num"));
+					pstmt.executeUpdate();
+					pstmt = con.prepareStatement("delete from tblBoardReply where wr_num=" + rs.getInt("wr_num"));
+					pstmt.executeUpdate();
+					pstmt = con.prepareStatement("delete from tblBoardUpload where wr_num=" + rs.getInt("wr_num"));
+					pstmt.executeUpdate();
+				}
+				
+				pstmt = con.prepareStatement("delete from tblBoardBasic where board_num=" + board_num);
+				pstmt.executeUpdate();
+				pstmt = con.prepareStatement("delete from tblBoardMaster where board_num=" + board_num);
+				pstmt.executeUpdate();
+			}	
+		}
+		catch(Exception err){
+			System.out.println("removeBoard() : " + err);
+		}
+		finally{
+			//dao.freeCon(con, pstmt, rs);
+			dao.freeConnection(con, pstmt, rs);
+		}
+	}
 }
