@@ -6,7 +6,12 @@
 	<meta charset="UTF-8">
 	<title>Board List</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
 	<script>
 		$(document).ready(
 			function(){
