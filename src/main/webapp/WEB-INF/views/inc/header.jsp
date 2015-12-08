@@ -21,7 +21,15 @@
 				<li><a href="#">Contact</a></li>
 			</ul>
 			<form class="nav navbar-form pull-right">
-				<a href="#" data-toggle="modal" data-target="#squarespaceModal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>로그 인</a> 
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="#" data-toggle="modal" data-target="#squarespaceModal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>로그 인</a>
+					</li>
+					
+					<li>
+						<a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>회원 가입</a>
+					</li>
+				</ul> 
 			</form>
 		</div>
 		<!-- /.navbar-collapse -->
