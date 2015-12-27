@@ -1,8 +1,10 @@
 package com.netsong7.board.multiboard.controller;
 
-import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Enumeration;
+import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.netsong7.board.multiboard.dto.BasicBoardDto;
+import com.netsong7.board.multiboard.dto.CommentBoardDto;
 import com.netsong7.board.multiboard.dto.MasterBoardDto;
 import com.netsong7.board.multiboard.service.Service;
 import com.netsong7.board.multiboard.service.ServiceImpl;
@@ -132,12 +135,26 @@ public class BoardController extends HttpServlet {
 		else if("READ_BOARD".equals(cmd)){
 			int wr_num = Integer.parseInt(req.getParameter("wr_num"));
 			board_num = Integer.parseInt(req.getParameter("board_num"));
+			String subcmd = req.getParameter("subcmd");
 			
 			MasterBoardDto dto = service.getMasterTable(board_num);
 			BasicBoardDto basicDto = service.getBoard(wr_num, dto.getBoard_upload());
 			
 			req.setAttribute("master", dto);
 			req.setAttribute("board", basicDto);
+			
+			if("comment".equals(subcmd)){
+				CommentBoardDto commentDto = new CommentBoardDto();
+				commentDto.setCo_comment(req.getParameter("co_comment"));
+				// 그냥 new Date()를 쓰면 db의 날짜 형식과 같지 않기 때문에 입력 안됨
+				commentDto.setCo_date(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+				commentDto.setCo_name(req.getParameter("co_name"));
+				commentDto.setWr_num(wr_num);
+				
+				Vector commentList = (Vector)service.commentBoard(commentDto);
+				req.setAttribute("commentList", commentList);
+			}
+			
 			nextPage = "/WEB-INF/views/board/read.jsp";
 		}
 		else if("DOWNLOAD".equals(cmd)){

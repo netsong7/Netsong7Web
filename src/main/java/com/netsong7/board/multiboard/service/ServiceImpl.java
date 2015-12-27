@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Vector;
 
 import com.netsong7.board.multiboard.dto.BasicBoardDto;
+import com.netsong7.board.multiboard.dto.CommentBoardDto;
 import com.netsong7.board.multiboard.dto.MasterBoardDto;
 import com.netsong7.dao.DAO_Singleton;
 import com.netsong7.dao.DBConnectionMgr;
@@ -318,5 +319,46 @@ public class ServiceImpl implements Service {
 			//dao.freeCon(con, pstmt, rs);
 			dao.freeConnection(con, pstmt, rs);
 		}
+	}
+	
+	@Override
+	public List commentBoard(CommentBoardDto commentBoardDto) {
+		Vector commentList = new Vector();
+		try{
+			con = dao.getConnection();
+			if(con != null){
+				String sql = "insert into tblBoardComment(co_name, co_comment, co_date, wr_num) values(?,?,?,?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, commentBoardDto.getCo_name());
+				pstmt.setString(2, commentBoardDto.getCo_comment());
+				pstmt.setString(3, commentBoardDto.getCo_date());
+				pstmt.setInt(4, commentBoardDto.getWr_num());
+	
+				pstmt.executeUpdate();  
+				
+				sql = "select * from tblBoardComment where wr_num = " + commentBoardDto.getWr_num();
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()){
+					CommentBoardDto dto = new CommentBoardDto();
+					dto.setWr_num(rs.getInt("wr_num"));
+					dto.setCo_comment(rs.getString("co_comment"));
+					dto.setCo_date(rs.getString("co_date"));
+					dto.setCo_num(rs.getInt("co_num"));
+					dto.setCo_name(rs.getString("co_name"));
+					
+					commentList.add(dto);
+				}
+			}	
+		}
+		catch(Exception err){
+			System.out.println("commentBoard() : " + err);
+		}
+		finally{
+			//dao.freeCon(con, pstmt);
+			dao.freeConnection(con, pstmt, rs);
+		}
+		return commentList;
 	}
 }

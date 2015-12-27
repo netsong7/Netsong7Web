@@ -36,12 +36,15 @@
     					$(location).attr('href',url);
         			}
         		);
+    			/*
     			$("#comment").click(
     				//http://api.jqueryui.com/toggleClass/
             		function(){
             			 $(".toggler").toggleClass( "commentshow");
             		}
+    				
             	);
+    			*/
     			$("#delete").click(
             		function(){
             			var url ="board_manage?cmd=DELETE_BOARD";
@@ -116,7 +119,9 @@
                             <div class="col-md-12 text-center">
                             	<button type="button" class="btn btn-primary" id="home">홈</button>
                                 <button type="button" class="btn btn-primary" id="update">수정</button>
-                                <button type="button" class="btn btn-primary" id="reply">답변</button>
+                                <c:if test='${master["board_reply"] == "y" }'>
+                                	<button type="button" class="btn btn-primary" id="reply">답변</button>
+                                </c:if>
                                 <button type="button" class="btn btn-primary" id="delete">삭제</button>
                             </div>
                         </div>
@@ -127,17 +132,33 @@
     </div>
 </div>
 
-<!-- 댓글쓰기 -->
-<div class="toggler">
-    <div>
-    	<span class="col-md-2 text-center">댓글 쓰기</span>
-        <div class="col-md-5">
-         	<textarea class="form-control" id="co_comment" name="co_comment" placeholder="Enter your massage for us here." rows="3"></textarea>
-        </div>
-        <button type="button" class="btn btn-primary" id="comment">댓글</button>
-    </div>
-</div>
-
+<!-- 댓글 -->
+<c:if test='${master["board_comment"] == "y"}'>
+	<c:forEach var="item" items="${commentList}">
+		<div>
+			${item["co_name"]}<br/>
+			${item["co_comment"]}<br/>
+			${item["co_date"]} 
+		</div>
+		<br/><br/>
+	</c:forEach>
+	<div class="toggler">
+	    <div>
+	    	<form method="post" action="board.manage?cmd=READ_BOARD">
+	    		<input type="hidden" name="wr_num" value='${board["wr_num"]}'>
+	    		<input type="hidden" name="board_num" value='${master["board_num"]}'>
+	    		<input type="hidden" name="subcmd" value="comment">
+	    		
+		    	<span class="col-md-2 text-center">댓글 쓰기</span>
+		        <div class="col-md-5">
+		        	<input type="text" id="co_name" name="co_name" placeholder="Enter your name"/><br/>
+		         	<textarea class="form-control" id="co_comment" name="co_comment" placeholder="Enter your massage for us here." rows="3"></textarea>
+		        </div>
+		        <button type="submit" class="btn btn-primary" id="comment">댓글</button>
+	        </form>
+	    </div>
+	</div>
+</c:if>
  <style>
     .header {
         color: #36A0FF;
