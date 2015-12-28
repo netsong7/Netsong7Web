@@ -147,7 +147,7 @@
 	    	<form method="post" action="board.manage?cmd=READ_BOARD">
 	    		<input type="hidden" name="wr_num" value='${board["wr_num"]}'>
 	    		<input type="hidden" name="board_num" value='${master["board_num"]}'>
-	    		<input type="hidden" name="subcmd" value="comment">
+	    		<input type="hidden" name="subcmd" value="COMMENT_WRITE">
 	    		
 		    	<span class="col-md-2 text-center">댓글 쓰기</span>
 		        <div class="col-md-5">

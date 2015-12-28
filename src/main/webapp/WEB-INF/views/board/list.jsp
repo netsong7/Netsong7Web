@@ -55,7 +55,7 @@
 				<c:forEach var="board" items="${boardList}">
 					<tr>
 						<td> ${board["wr_num"]}	</td>
-						<td> <a href='board.manage?cmd=READ_BOARD&wr_num=${board["wr_num"]}&board_num=${board_num}&subcmd=comment'>${board["wr_title"]}</a> </td>
+						<td> <a href='board.manage?cmd=READ_BOARD&wr_num=${board["wr_num"]}&board_num=${board_num}'>${board["wr_title"]}</a> </td>
 						<td> ${board["wr_writer"]} </td>
 						<td> ${board["wr_date"]} </td>
 						<td> ${board["wr_counter"]} </td>

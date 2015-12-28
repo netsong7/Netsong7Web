@@ -143,7 +143,10 @@ public class BoardController extends HttpServlet {
 			req.setAttribute("master", dto);
 			req.setAttribute("board", basicDto);
 			
-			if("comment".equals(subcmd)){
+			Vector commentList = (Vector)service.getCommentList(wr_num);
+			req.setAttribute("commentList", commentList);
+			
+			if("COMMENT_WRITE".equals(subcmd)){
 				CommentBoardDto commentDto = new CommentBoardDto();
 				commentDto.setCo_comment(req.getParameter("co_comment"));
 				// 그냥 new Date()를 쓰면 db의 날짜 형식과 같지 않기 때문에 입력 안됨
@@ -151,7 +154,9 @@ public class BoardController extends HttpServlet {
 				commentDto.setCo_name(req.getParameter("co_name"));
 				commentDto.setWr_num(wr_num);
 				
-				Vector commentList = (Vector)service.commentBoard(commentDto);
+				service.commentBoard(commentDto);
+				
+				commentList = (Vector)service.getCommentList(wr_num);
 				req.setAttribute("commentList", commentList);
 			}
 			

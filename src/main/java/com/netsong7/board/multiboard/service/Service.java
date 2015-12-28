@@ -15,5 +15,6 @@ public interface Service {
 	public BasicBoardDto getBoard(int wr_num, String board_upload);
 	public boolean getDuplicatedTableName(String tableName);
 	public void removeBoard(int board_num);
-	public List commentBoard(CommentBoardDto commentBoardDto);
+	public void commentBoard(CommentBoardDto commentBoardDto);
+	public List getCommentList(int wr_num);
 }

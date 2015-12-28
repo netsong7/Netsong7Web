@@ -322,8 +322,7 @@ public class ServiceImpl implements Service {
 	}
 	
 	@Override
-	public List commentBoard(CommentBoardDto commentBoardDto) {
-		Vector commentList = new Vector();
+	public void commentBoard(CommentBoardDto commentBoardDto) {
 		try{
 			con = dao.getConnection();
 			if(con != null){
@@ -335,21 +334,6 @@ public class ServiceImpl implements Service {
 				pstmt.setInt(4, commentBoardDto.getWr_num());
 	
 				pstmt.executeUpdate();  
-				
-				sql = "select * from tblBoardComment where wr_num = " + commentBoardDto.getWr_num();
-				pstmt = con.prepareStatement(sql);
-				rs = pstmt.executeQuery();
-				
-				while(rs.next()){
-					CommentBoardDto dto = new CommentBoardDto();
-					dto.setWr_num(rs.getInt("wr_num"));
-					dto.setCo_comment(rs.getString("co_comment"));
-					dto.setCo_date(rs.getString("co_date"));
-					dto.setCo_num(rs.getInt("co_num"));
-					dto.setCo_name(rs.getString("co_name"));
-					
-					commentList.add(dto);
-				}
 			}	
 		}
 		catch(Exception err){
@@ -357,6 +341,29 @@ public class ServiceImpl implements Service {
 		}
 		finally{
 			//dao.freeCon(con, pstmt);
+			dao.freeConnection(con, pstmt);
+		}
+	}
+	
+	public List getCommentList(int wr_num){
+		Vector commentList = new Vector();
+		try{
+			String sql = "select * from tblBoardComment where wr_num = " + wr_num;
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				CommentBoardDto dto = new CommentBoardDto();
+				dto.setWr_num(rs.getInt("wr_num"));
+				dto.setCo_comment(rs.getString("co_comment"));
+				dto.setCo_date(rs.getString("co_date"));
+				dto.setCo_num(rs.getInt("co_num"));
+				dto.setCo_name(rs.getString("co_name"));
+				
+				commentList.add(dto);
+			}
+		}
+		catch(Exception err){
 			dao.freeConnection(con, pstmt, rs);
 		}
 		return commentList;
