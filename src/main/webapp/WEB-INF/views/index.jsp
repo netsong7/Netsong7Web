@@ -127,8 +127,8 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <ul class="list-unstyled">
-                                <li><a href="board.app?cmd=MVC_MULTI">MVC 멀티 게시판</a></li>
-                                <li><a href="board.app?cmd=SPRING_MULTI">스프링 멀티 게시판</a></li>
+                                <li><a href="board.app?cmd=CREATE_BOARD">MVC 멀티 게시판</a></li>
+                                <li><a href="board.spr?cmd=CREATE_BOARD">스프링 멀티 게시판</a></li>
                                 <li><a href="chatting.app">웹소켓을 이용한 채팅</a></li>
                                 <li><a href="#">Category Name</a></li>
                             </ul>

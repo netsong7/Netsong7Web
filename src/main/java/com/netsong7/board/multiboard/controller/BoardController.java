@@ -47,7 +47,7 @@ public class BoardController extends HttpServlet {
 		String nextPage = null;
 		Service service = new ServiceImpl();
 		int board_num = 0;
-
+		
 		if("CREATE_BOARD".equals(cmd)){
 			String boardName = req.getParameter("boardName");
 			String boardTitle = req.getParameter("boardTitle");
@@ -55,7 +55,7 @@ public class BoardController extends HttpServlet {
 			
 			// 중복된 테이블명이 있다면
 			if(service.getDuplicatedTableName(boardName)){
-				resp.getWriter().println("true");
+				resp.getWriter().println("true");	// AJAX로 구현함.
 				return;
 				//nextPage = "/WEB-INF/views/board/createBoard.jsp";
 			}
@@ -96,9 +96,9 @@ public class BoardController extends HttpServlet {
 			service.writeBoard(basicDto);
 						
 			req.setAttribute("board_num", board_num);
-			nextPage = "/WEB-INF/views/board/list.jsp";
+			nextPage = "/WEB-INF/views/board/list.jsp"; 
 		}
-		else if("WRITE_PROC_UPLOAD_BOARD".equals(cmd)){
+		else if("WRITE_PROC_UPLOAD_BOARD".equals(cmd)){ 
 			String saveDir = getServletContext().getRealPath("upload");
 			MultipartRequest multiReq = new MultipartRequest(req, saveDir, 50*1024*1024, "utf-8", new DefaultFileRenamePolicy());
 			

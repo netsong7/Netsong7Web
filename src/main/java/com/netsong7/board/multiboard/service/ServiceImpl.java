@@ -296,8 +296,9 @@ public class ServiceImpl implements Service {
 				String sql = "select wr_num from tblBoardBasic where board_num=" + board_num;
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
-				
+			
 				if(rs.next()){
+					System.out.println(rs.getInt("wr_num"));
 					pstmt = con.prepareStatement("delete from tblBoardComment where wr_num=" + rs.getInt("wr_num"));
 					pstmt.executeUpdate();
 					pstmt = con.prepareStatement("delete from tblBoardReply where wr_num=" + rs.getInt("wr_num"));
