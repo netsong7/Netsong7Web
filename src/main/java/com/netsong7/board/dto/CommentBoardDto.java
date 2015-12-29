@@ -1,4 +1,4 @@
-package com.netsong7.board.multiboard.dto;
+package com.netsong7.board.dto;
 
 public class CommentBoardDto {
 	private	int		co_num;

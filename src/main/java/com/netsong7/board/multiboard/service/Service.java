@@ -2,9 +2,9 @@ package com.netsong7.board.multiboard.service;
 
 import java.util.List;
 
-import com.netsong7.board.multiboard.dto.BasicBoardDto;
-import com.netsong7.board.multiboard.dto.CommentBoardDto;
-import com.netsong7.board.multiboard.dto.MasterBoardDto;
+import com.netsong7.board.dto.BasicBoardDto;
+import com.netsong7.board.dto.CommentBoardDto;
+import com.netsong7.board.dto.MasterBoardDto;
 
 public interface Service {
 	public void createBoard(String boardName, String boardTitle, String[] chkOption);  

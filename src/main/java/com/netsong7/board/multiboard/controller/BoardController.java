@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.netsong7.board.multiboard.dto.BasicBoardDto;
-import com.netsong7.board.multiboard.dto.CommentBoardDto;
-import com.netsong7.board.multiboard.dto.MasterBoardDto;
+import com.netsong7.board.dto.BasicBoardDto;
+import com.netsong7.board.dto.CommentBoardDto;
+import com.netsong7.board.dto.MasterBoardDto;
 import com.netsong7.board.multiboard.service.Service;
 import com.netsong7.board.multiboard.service.ServiceImpl;
 import com.oreilly.servlet.MultipartRequest;

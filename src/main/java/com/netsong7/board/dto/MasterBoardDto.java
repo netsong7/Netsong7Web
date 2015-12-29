@@ -1,4 +1,4 @@
-package com.netsong7.board.spring.dto;
+package com.netsong7.board.dto;
 
 public class MasterBoardDto {
 	private int board_num;

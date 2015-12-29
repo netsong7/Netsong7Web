@@ -7,9 +7,9 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Vector;
 
-import com.netsong7.board.multiboard.dto.BasicBoardDto;
-import com.netsong7.board.multiboard.dto.CommentBoardDto;
-import com.netsong7.board.multiboard.dto.MasterBoardDto;
+import com.netsong7.board.dto.BasicBoardDto;
+import com.netsong7.board.dto.CommentBoardDto;
+import com.netsong7.board.dto.MasterBoardDto;
 import com.netsong7.dao.DAO_Singleton;
 import com.netsong7.dao.DBConnectionMgr;
 
