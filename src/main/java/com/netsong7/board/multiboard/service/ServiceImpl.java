@@ -269,6 +269,7 @@ public class ServiceImpl implements Service {
 			con = dao.getConnection();
 			if(con != null){
 				String sql = "select table_name from INFORMATION_SCHEMA.TABLES where  TABLE_SCHEMA = 'netsong7' and table_name='" + tableName + "'";
+				
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				

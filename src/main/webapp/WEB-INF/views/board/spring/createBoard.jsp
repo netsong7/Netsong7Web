@@ -77,7 +77,9 @@
 					<div class="input-group">	
 					  	<span class="input-group-addon">게시판 이름 입력(예:tblFreetalk, tblQnA, tblNotice)</span>
 					  	<input type="text" class="form-control" aria-label="생성할 테이블명을 입력하시오." name="boardName" id="boardName" required="required">
-					</div><br/>
+					</div>
+					입력불가 테이블: tblBoardMaster, tblBoardBasic, tblBoardComment, tblBoardUpload, tblBoardReply
+					<br/>
 					<div class="input-group">
 					  	<span class="input-group-btn">
 		        			<button class="btn btn-default" type="button" id="createBoard">게시판 생성</button>

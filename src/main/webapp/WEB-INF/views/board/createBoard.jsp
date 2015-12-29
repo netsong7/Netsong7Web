@@ -36,6 +36,7 @@
 						    contentType: "application/x-www-form-urlencoded; charset=utf-8",
 						    dataType: "text",   
 						    success: function(data) { // data: 백엔드에서 requestBody 형식으로 보낸 데이터를 받는다.
+						    	alert(data);
 						       if(data.trim() == "true"){
 						    	   $("#resultDisplay").text("이미 테이블명이 사용중입니다. 다른 이름을 입력해주세요.");
 						       }
@@ -77,7 +78,8 @@
 					<div class="input-group">	
 					  	<span class="input-group-addon">게시판 이름 입력(예:tblFreetalk, tblQnA, tblNotice)</span>
 					  	<input type="text" class="form-control" aria-label="생성할 테이블명을 입력하시오." name="boardName" id="boardName" required="required">
-					</div><br/>
+					</div>
+					입력불가 테이블: tblBoardMaster, tblBoardBasic, tblBoardComment, tblBoardUpload, tblBoardReply<br/>
 					<div class="input-group">
 					  	<span class="input-group-btn">
 		        			<button class="btn btn-default" type="button" id="createBoard">게시판 생성</button>
