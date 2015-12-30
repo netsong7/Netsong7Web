@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.netsong7.board.multiboard.service.ServiceImpl;
+import com.netsong7.board.multiboard.spring.service.ServiceImpl;
 
 public class AppFrontController extends HttpServlet {
 	private ServiceImpl service;

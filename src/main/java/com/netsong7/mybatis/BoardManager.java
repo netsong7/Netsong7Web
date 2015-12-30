@@ -9,6 +9,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.netsong7.board.dto.MasterBoardDto;
+
 public class BoardManager {
 	private static SqlSessionFactory sqlFactory;
 	static{
@@ -22,10 +24,38 @@ public class BoardManager {
 		}
 	}
 	
-	public static List getList(){
+	public static List getTables(){
 		List list = null;
 		SqlSession session = sqlFactory.openSession();
-		list = session.selectList("getList");
+		list = session.selectList("getTables");
 		return list;
+	}
+	
+	public static void createBoard(MasterBoardDto masterBoardDto){
+		SqlSession session = sqlFactory.openSession();
+		session.insert("createBoard", masterBoardDto);
+		session.commit();
+	}
+	
+	public static boolean getDuplicatedTableName(String table_name){
+		SqlSession session = sqlFactory.openSession();
+		String tname = session.selectOne("getDuplicatedTableName", table_name);
+
+		try{
+			if(tname.equals(table_name))
+				return true;
+			else
+				return false;
+		}
+		catch(NullPointerException err){
+			return false;
+		}
+	}
+	
+	public static void removeBoard(int board_num){
+		SqlSession session = sqlFactory.openSession();
+		System.out.println(board_num);
+		List list = session.selectList("getBoardBasic", board_num);
+		System.out.println(list.size());
 	}
 }

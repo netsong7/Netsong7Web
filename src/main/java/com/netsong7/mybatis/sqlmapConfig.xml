@@ -4,11 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
  <configuration>
- 	<properties resource="mybatis/db.properties"></properties>
+ 	<properties resource="com/netsong7/mybatis/db.properties"></properties>
  
  	<typeAliases>
- 		<typeAlias type="com.netsong7.board.repository.BoardDto"  alias="BoardDto"/>
- 		<typeAlias type="com.netsong7.member.repository.Member"  alias="Member"/>
+ 		<typeAlias type="com.netsong7.board.dto.MasterBoardDto"  alias="MasterBoardDto"/>
+ 		<typeAlias type="com.netsong7.board.dto.BasicBoardDto"  alias="BasicBoardDto"/>
+ 		<typeAlias type="com.netsong7.board.dto.CommentBoardDto"  alias="CommentBoardDto"/>
  	</typeAliases>
  
 	<environments default="development">
@@ -32,7 +33,6 @@
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="mybatis/boardMapper.xml" />
-		<mapper resource="mybatis/memberMapper.xml" />
+		<mapper resource="com/netsong7/mybatis/boardMapper.xml" />
 	</mappers>
 </configuration>

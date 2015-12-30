@@ -3,24 +3,26 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="mybatis.boardMapper">
+<mapper namespace="com.netsong7.mybatis.boardMapper">
 	<!-- 전체 글보기 -->
-	<select id="getList" resultType="BoardDto">
-		select * from tblSpringBoard
-		order by b_seq desc
+	<select id="getTables" resultType="MasterBoardDto">
+		select * from tblBoardMaster
 	</select>
 	
-	<!-- 글쓰기 -->
-	<insert id="write" parameterType="BoardDto">
-		insert into tblSpringBoard(b_title, b_content, b_writer, 
-											b_regdate, b_hitcount, b_password) 
-		values(#{b_title},#{b_content},#{b_writer},now(), 0,#{b_password})
+	<insert id="createBoard" parameterType="MasterBoardDto">
+		insert into tblBoardMaster(board_disp_name, board_tab_name, board_create_date, board_reply, board_comment, board_upload) 
+		values(#{board_disp_name}, #{board_tab_name}, now(), #{board_reply}, #{board_comment}, #{board_upload})
 	</insert>
 	
-	<!-- 특정 글보기 -->
-	<select id="findBySeq" parameterType="int" resultType="BoardDto">
-		select * from tblSpringBoard where b_seq=#{b_seq}
+	<select id="getDuplicatedTableName" parameterType="String" resultType="String">
+		select table_name from INFORMATION_SCHEMA.TABLES where  TABLE_SCHEMA = 'netsong7' and table_name=#{board_tab_name}
 	</select>
+	
+	<!-- 테이블 삭제를 위한 기능 -->
+	<select id="getBoardBasic" parameterType="int" resultType="int">
+		select wr_num from tblBoardBasic where board_num=#{board_num}
+	</select>
+	
 </mapper>
 
 

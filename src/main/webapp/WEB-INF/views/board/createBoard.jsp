@@ -36,7 +36,6 @@
 						    contentType: "application/x-www-form-urlencoded; charset=utf-8",
 						    dataType: "text",   
 						    success: function(data) { // data: 백엔드에서 requestBody 형식으로 보낸 데이터를 받는다.
-						    	alert(data);
 						       if(data.trim() == "true"){
 						    	   $("#resultDisplay").text("이미 테이블명이 사용중입니다. 다른 이름을 입력해주세요.");
 						       }
