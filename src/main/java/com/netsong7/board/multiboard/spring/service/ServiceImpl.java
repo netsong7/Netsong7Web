@@ -58,68 +58,11 @@ public class ServiceImpl implements Service {
 	
 	// 마스터 테이블 정보 알아내기
 	public MasterBoardDto getMasterTable(int boardNum){
-		try{
-			con = dao.getConnection();
-			
-			if(con != null){
-				String sql = "select * from tblBoardMaster where board_num=?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, boardNum);
-				rs = pstmt.executeQuery();
-				
-				if(rs.next()){
-					MasterBoardDto dto = new MasterBoardDto();
-					dto.setBoard_create_date(rs.getString("board_create_date"));
-					dto.setBoard_disp_name(rs.getString("board_disp_name"));
-					dto.setBoard_num(rs.getInt("board_num"));
-					dto.setBoard_tab_name(rs.getString("board_tab_name"));
-					dto.setBoard_reply(rs.getString("board_reply"));
-					dto.setBoard_comment(rs.getString("board_comment"));
-					dto.setBoard_upload(rs.getString("board_upload"));
-					
-					return dto;
-				}
-			}	
-		}
-		catch(Exception err){
-			System.out.println("getBoard() : " + err);
-		}
-		finally{
-			//dao.freeCon(con, pstmt, rs);
-			dao.freeConnection(con, pstmt, rs);
-		}
-		return null;
+		return BoardManager.getMasterTable(boardNum);
 	}
 	
 	public List getBoardList(int board_num){
-		Vector boardList = new Vector();
-		try{
-			con = dao.getConnection();
-			if(con != null){
-				String sql = "select wr_num, wr_title, wr_writer, wr_date, wr_counter from tblBoardBasic where board_num=" + board_num;
-				pstmt = con.prepareStatement(sql);
-				rs = pstmt.executeQuery();
-				
-				while(rs.next()){
-					BasicBoardDto dto = new BasicBoardDto();
-					dto.setWr_num(rs.getInt("wr_num"));
-					dto.setWr_title(rs.getString("wr_title"));
-					dto.setWr_writer(rs.getString("wr_writer"));
-					dto.setWr_date(rs.getString("wr_date"));
-					dto.setWr_counter(rs.getInt("wr_counter"));
-					
-					boardList.add(dto);
-				}
-			}	
-		}
-		catch(Exception err){
-			System.out.println("createBoard() : " + err);
-		}
-		finally{
-			//dao.freeCon(con, pstmt, rs);
-			dao.freeConnection(con, pstmt, rs);
-		}
-		return boardList;
+		return BoardManager.getBoardList(board_num);
 	}
 	
 	public void writeBoard(BasicBoardDto basicDto){

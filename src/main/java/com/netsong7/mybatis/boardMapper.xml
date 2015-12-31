@@ -23,6 +23,30 @@
 		select wr_num from tblBoardBasic where board_num=#{board_num}
 	</select>
 	
+	<delete id="allDeleteBoard" parameterType="java.util.Map">
+		  <foreach  item="item" collection="list">
+           	delete from tblBoardComment where wr_num=#{item.list};
+           	delete from tblBoardReply where wr_num=#{item.list};
+           	delete from tblBoardUpload where wr_num=#{item.list};
+        </foreach>
+		delete from tblBoardBasic where board_num=#{list.board_num};
+		delete from tblBoardMaster where board_num=#{list.board_num};
+	</delete>
+	
+	<!-- 각 테이블의 리스트 페이지 -->
+	<select id="getBoardList" parameterType="int" resultType="BasicBoardDto">
+		select wr_num, wr_title, wr_writer, wr_date, wr_counter from tblBoardBasic where board_num=#{board_num}
+	</select>
+	
+	<!-- 마스터 테이블의 정보 알아내기 -->
+	<select id="getMasterTable" parameterType="int" resultType="MasterBoardDto">
+		select * from tblBoardMaster where board_num=#{board_num}
+	</select>
+	
+	<insert id="writeBoard">
+		insert into tblBoardBasic(wr_title, wr_writer, wr_contents, wr_email, wr_home, wr_counter, wr_ip, wr_pass, wr_date, board_num) 
+		values(#{wr_title}, #{wr_writer}, #{wr_contents}, #{wr_email}, #{wr_home}, 0, #{wr_ip}, #{wr_pass}, now(), #{board_num})
+	</insert>
 </mapper>
 
 

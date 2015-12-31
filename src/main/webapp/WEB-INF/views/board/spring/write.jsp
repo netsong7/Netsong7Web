@@ -24,10 +24,10 @@
             <div class="well well-sm">
          	<c:choose> 
          		<c:when test='${master["board_upload"] == "y"}'>
-             		<form class="form-horizontal" method="post" action='board.manage?cmd=WRITE_PROC_UPLOAD_BOARD' enctype="multipart/form-data">
+             		<form class="form-horizontal" method="post" action='boardWrite.spr?cmd=WRITE_PROC_UPLOAD_BOARD' enctype="multipart/form-data">
              	</c:when>
              	<c:otherwise>
-             		<form class="form-horizontal" method="post" action='board.manage?cmd=WRITE_PROC_BOARD' >
+             		<form class="form-horizontal" method="post" action='boardWrite.spr?cmd=WRITE_PROC_BOARD' >
              	</c:otherwise>
             </c:choose>
                 	<input type="hidden" name="board_num" value='${master["board_num"]}' />

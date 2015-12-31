@@ -17,7 +17,7 @@
 			function(){
 				$("#board_write").click(
 					function(){
-						var url ="board.manage?cmd=WRITE_BOARD&board_num=${board_num}";
+						var url ="boardWrite.spr?board_num=${board_num}";
 						$(location).attr('href',url);
 					}
 				);
@@ -31,7 +31,7 @@
 	<div class="row" align="center">
 		<div class="col-lg-12 text-center v-center">
           <h2>멀티 게시판</h2>
-          <p class="lead">Bootstrap 3와 MVC를 이용한 멀티 게시판</p>
+          <p class="lead">Bootstrap 3와 Spring을 이용한 멀티 게시판</p>
           <br> 
           <form class="col-lg-11">
             <div class="input-group input-group-sm col-sm-offset-4 col-sm-4">
@@ -55,7 +55,7 @@
 				<c:forEach var="board" items="${boardList}">
 					<tr>
 						<td> ${board["wr_num"]}	</td>
-						<td> <a href='board.manage?cmd=READ_BOARD&wr_num=${board["wr_num"]}&board_num=${board_num}'>${board["wr_title"]}</a> </td>
+						<td> <a href='readBoard.spr?wr_num=${board["wr_num"]}&board_num=${board_num}'>${board["wr_title"]}</a> </td>
 						<td> ${board["wr_writer"]} </td>
 						<td> ${board["wr_date"]} </td>
 						<td> ${board["wr_counter"]} </td>

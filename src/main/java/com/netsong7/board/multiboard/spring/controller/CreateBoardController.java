@@ -26,10 +26,7 @@ public class CreateBoardController {
 	}
 	
 	@RequestMapping(value="/createBoard.spr", method=RequestMethod.POST)
-	public String pageSubmit(@ModelAttribute MasterBoardDto masterBoardDto, HttpServletResponse resp) throws IOException{
-		String nextPage = null;
-		int board_num = 0;
-		
+	public String pageSubmit(@ModelAttribute MasterBoardDto masterBoardDto, HttpServletResponse resp) throws IOException{	
 		// 중복된 테이블명이 있다면
 		if(service.getDuplicatedTableName(masterBoardDto.getBoard_tab_name())){
 			// AJAX로 값을 돌려주기 위해 true.jsp를 만들어 이동하면 true문자열을 리턴하게 하였다.

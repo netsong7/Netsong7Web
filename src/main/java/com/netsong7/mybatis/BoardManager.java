@@ -2,13 +2,16 @@ package com.netsong7.mybatis;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.netsong7.board.dto.BasicBoardDto;
 import com.netsong7.board.dto.MasterBoardDto;
 
 public class BoardManager {
@@ -54,8 +57,31 @@ public class BoardManager {
 	
 	public static void removeBoard(int board_num){
 		SqlSession session = sqlFactory.openSession();
-		System.out.println(board_num);
+		
 		List list = session.selectList("getBoardBasic", board_num);
-		System.out.println(list.size());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("board_num", board_num);
+
+		session.delete("allDeleteBoard", map);
+		session.commit();
+	}
+	
+	public static List getBoardList(int board_num){
+		SqlSession session = sqlFactory.openSession();
+		List list = session.selectList("getBoardList", board_num);
+		return list;
+	}
+	
+	public static MasterBoardDto getMasterTable(int board_num){
+		SqlSession session = sqlFactory.openSession();
+		MasterBoardDto dto = session.selectOne("getMasterTable", board_num);
+		return dto;
+	}
+	
+	public static void writeBoard(BasicBoardDto dto){
+		SqlSession session = sqlFactory.openSession();
+		session.insert("writeBoard", dto);
+		session.commit();
 	}
 }
